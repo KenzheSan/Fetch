@@ -6,23 +6,24 @@ import NewTask from './components/NewTask/NewTask'
 function App() {
 	const [tasks, setTasks] = useState([])
 
-  const transformTasks = taskObj =>{
-    const loadedTasks = []
-
-    for(const taksKey in taskObj) {
-      loadedTasks.push({id: taksKey, text: taskObj[taksKey].text})
-    }
-    setTasks(loadedTasks)
-  }  
-
-  const { error , isLoading , sendRequest : fetchTasks} = useHttp({
-    url: 'https://react-http-test-a5917-default-rtdb.firebaseio.com/tasks.json'
-  },transformTasks);
- 
+	const { error, isLoading, sendRequest: fetchTasks } = useHttp()
 
 	useEffect(() => {
-		fetchTasks();
-	}, [])
+		const transformTasks = (taskObj) => {
+			const loadedTasks = []
+
+			for (const taksKey in taskObj) {
+				loadedTasks.push({ id: taksKey, text: taskObj[taksKey].text })
+			}
+			setTasks(loadedTasks)
+		}
+		fetchTasks(
+			{
+				url: 'https://react-http-test-a5917-default-rtdb.firebaseio.com/tasks.json',
+			},
+			transformTasks,
+		)
+	}, [fetchTasks])
 
 	const taskAddHandler = (task) => {
 		setTasks((prevTasks) => prevTasks.concat(task))
