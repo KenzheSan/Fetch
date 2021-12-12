@@ -1,7 +1,11 @@
+import SimpleInput from './components/SimpleInput';
+
 function App() {
-	return <div>
-    
-  </div>
+  return (
+    <div className="app">
+      <SimpleInput />
+    </div>
+  );
 }
 
-export default App
+export default App;
