@@ -1,13 +1,14 @@
 import useInput from '../hooks/use-input'
 
-const SimpleInput = (props) => {
+const SimpleInput = () => {
+	const regexForTheName = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/
 	const {
 		value: enteredName,
 		isValid: enteredNameIsValid,
 		hasError: nameInputHasError,
 		valueChangeHandler: nameChangeHandaler,
 		inputBlurHandler: nameInputBlurHandler,
-	} = useInput((value) => value.trim() !== '')
+	} = useInput((value) => regexForTheName.test(value))
 
 	let formIsValid = false
 	if (enteredNameIsValid) {
@@ -19,7 +20,6 @@ const SimpleInput = (props) => {
 		if (!enteredNameIsValid) return
 		console.log(enteredName)
 	}
-
 
 	const nameInputClasses = nameInputHasError
 		? 'form-control error-text'
@@ -33,10 +33,10 @@ const SimpleInput = (props) => {
 					type='text'
 					id='name'
 					onChange={nameChangeHandaler}
-					value={enteredName}
 					onBlur={nameInputBlurHandler}
+					value={enteredName}
 				/>
-				{nameInputHasError && <p>Name must not be empty</p>}
+				{nameInputHasError && <p style={{color: 'red'}}>Name must not be empty</p>}
 			</div>
 			<div className='form-actions'>
 				<button disabled={!formIsValid}>Submit</button>

@@ -6,15 +6,15 @@ const BasicForm = (props) => {
     const {
         value: enteredName,
         isValid: enteredNameIsValid,
-        hasEror: nameInputHasError,
+        hasError: nameInputHasError,
         valueChangeHandler: nameChangeHandler,
         inputBlurHandler: nameInputBlurHandler,
-    } = useInput((value) => value.match(regexForTheName))
-
+    } = useInput((value) => regexForTheName.test(value))
+                    
     const {
       value: enteredLastName,
       isValid: enteredLastNameIsValid,
-      hasEror: lastNameInputHasError,
+      hasError: lastNameInputHasError,
       valueChangeHandler: lastNameChangeHandler,
       inputBlurHandler: lastNameInputBlurHandler,
     } = useInput((value) => value.match(regexForTheName))
@@ -22,7 +22,7 @@ const BasicForm = (props) => {
     const {
       value: enteredEmail,
       isValid: enteredEmailIsValid,
-      hasEror: emailInputHasError,
+      hasError: emailInputHasError,
       valueChangeHandler: emailChangeHandler,
       inputBlurHandler: emailInputBlurHandler,
     } = useInput((value) => value.match(regexForTheEmail))
@@ -60,9 +60,6 @@ const BasicForm = (props) => {
         <div className='form-actions'>
           <button disabled={!formIsValid}>Submit</button>
         </div>
-        {console.log(nameInputHasError)}
-        {console.log(lastNameInputHasError)}
-        {console.log(lastNameInputHasError)}
       </form>
     );
   };

@@ -3,8 +3,9 @@ import { useState } from "react";
 const useInput = (validateValue) => {
     const [enteredValue,setEnteredValue] = useState('')
     const [isTouched,setIsTouched] = useState(false)
+
     const valueIsValid = validateValue(enteredValue)
-    const hasEror = !validateValue && isTouched
+    const hasError = !valueIsValid && isTouched
 
     const valueChangeHandler = (e) =>{
         setEnteredValue(e.target.value)
@@ -12,6 +13,7 @@ const useInput = (validateValue) => {
     
     const inputBlurHandler = () =>{
         setIsTouched(true)
+        console.log('fdsfsd');
     }
 
     
@@ -19,9 +21,9 @@ const useInput = (validateValue) => {
     return {
         value: enteredValue,
         isValid: valueIsValid,
-        hasEror: hasEror,
-        inputBlurHandler,
+        hasError: hasError,
         valueChangeHandler,
+        inputBlurHandler,
         
     }
 }
