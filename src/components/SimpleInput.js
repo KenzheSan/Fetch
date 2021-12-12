@@ -1,29 +1,25 @@
 import useInput from '../hooks/use-input'
 
 const SimpleInput = (props) => {
+	const {
+		value: enteredName,
+		isValid: enteredNameIsValid,
+		hasError: nameInputHasError,
+		valueChangeHandler: nameChangeHandaler,
+		inputBlurHandler: nameInputBlurHandler,
+	} = useInput((value) => value.trim() !== '')
 
-    const {
-        value: enteredName,
-        isValid: enteredNameIsValid,
-        hasError : nameInputHasError,
-        valueChangeHandler: nameChangeHandaler,
-        inputBlurHandler: nameInputBlurHandler
-    } = useInput(value => value.trim() !== '')
-
-
-    let formIsValid = false 
-    if(enteredNameIsValid){
-        formIsValid = true
-    }
-
+	let formIsValid = false
+	if (enteredNameIsValid) {
+		formIsValid = true
+	}
 
 	const formSubmitHandler = (e) => {
 		e.preventDefault()
-        if(!enteredNameIsValid) return
+		if (!enteredNameIsValid) return
 		console.log(enteredName)
 	}
 
-	
 
 	const nameInputClasses = nameInputHasError
 		? 'form-control error-text'
@@ -37,8 +33,8 @@ const SimpleInput = (props) => {
 					type='text'
 					id='name'
 					onChange={nameChangeHandaler}
-                    value={enteredName}
-                    onBlur={nameInputBlurHandler}
+					value={enteredName}
+					onBlur={nameInputBlurHandler}
 				/>
 				{nameInputHasError && <p>Name must not be empty</p>}
 			</div>
